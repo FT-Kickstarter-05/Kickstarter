@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from .preprocess import test_func
+from .preprocess import test_func, wrangle
 from .models import DB, Campaign
 from .kickstarter import add_campaigns
 
@@ -35,9 +35,16 @@ def create_app():
     #     add_campaigns()
     #     return 'Db file reset successful'
 
+    @app.route('/update')
+    def update():
+        data = wrangle()
+        return f'{data}Data Wrangled successfully'
+    data = wrangle()
+
+    
     @app.route('/predict')
     def prediction():
-        predicted = test_func()
+        predicted = test_func(data)
         return f'Here are the first five predictions from our model that were\
                 genearated from X_test: <br>{predicted}'
 
