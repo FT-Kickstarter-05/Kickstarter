@@ -38,6 +38,11 @@ def create_app():
         add_campaigns(df)
         return 'Db file reset successful'
 
+    @app.route('/query')
+    def query():
+        result = Campaign.query.limit(10).all()
+        return f'{result}'
+
     @app.route('/update')
     def update():
         data = wrangle()
