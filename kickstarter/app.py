@@ -41,7 +41,7 @@ def create_app():
         data = wrangle()
         return f'{data}Data Wrangled successfully'
     
-    data = pd.read_csv('https://raw.githubusercontent.com/FT-Kickstarter-05/Kickstarter/main/2018_ks_data.csv')
+    #data = pd.read_csv('https://raw.githubusercontent.com/FT-Kickstarter-05/Kickstarter/main/2018_ks_data.csv')
     
     @app.route('/predict')
     def prediction():
