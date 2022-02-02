@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from .preprocess import test_func, wrangle
 from .models import DB, Campaign
 from .kickstarter import add_campaigns
+import pandas as pd
 
 def create_app():
     '''Function called in __init__.py to create our Flask App'''
@@ -39,8 +40,8 @@ def create_app():
     def update():
         data = wrangle()
         return f'{data}Data Wrangled successfully'
-    data = wrangle()
-
+    
+    data = pd.read_csv('https://raw.githubusercontent.com/FT-Kickstarter-05/Kickstarter/main/2018_ks_data.csv')
     
     @app.route('/predict')
     def prediction():
