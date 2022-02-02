@@ -13,7 +13,7 @@ def create_app():
     def home_page():
         #test = test_func()
         #return f'{test}'
-        return render_template('base.html', title='hi')
+        return render_template('base.html', title='Kickstarter')
         #return render_template('index.html')
         #return 'This is the home page'
 
@@ -25,19 +25,20 @@ def create_app():
     DB.init_app(app)
 
     # Route to reset the database file from our processed dataframe
-    @app.route('/reset')
-    def reset():
-        # Drop all rows from database and create new ones
-        DB.drop_all()
-        DB.create_all()
-        # Run the add_campaigns function to grab all of the rows from our
-        # dataframe and insert them into the database
-        add_campaigns()
-        return 'Db file reset successful'
+    # @app.route('/reset')
+    # def reset():
+    #     # Drop all rows from database and create new ones
+    #     DB.drop_all()
+    #     DB.create_all()
+    #     # Run the add_campaigns function to grab all of the rows from our
+    #     # dataframe and insert them into the database
+    #     add_campaigns()
+    #     return 'Db file reset successful'
 
     @app.route('/predict')
     def prediction():
         predicted = test_func()
-        return f'{predicted}'
+        return f'Here are the first five predictions from our model that were\
+                genearated from X_test: <br>{predicted}'
 
     return app
