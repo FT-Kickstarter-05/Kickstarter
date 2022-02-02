@@ -26,23 +26,23 @@ def create_app():
     DB.init_app(app)
 
     # Route to reset the database file from our processed dataframe
-    # @app.route('/reset')
-    # def reset():
-    #     # Drop all rows from database and create new ones
-    #     DB.drop_all()
-    #     DB.create_all()
-    #     # Run the add_campaigns function to grab all of the rows from our
-    #     # dataframe and insert them into the database
-    #     add_campaigns()
-    #     return 'Db file reset successful'
+    @app.route('/reset')
+    def reset():
+        # Drop all rows from database and create new ones
+        DB.drop_all()
+        DB.create_all()
+        # Run the add_campaigns function to grab all of the rows from our
+        # dataframe and insert them into the database
+        df = pd.read_csv(
+            'https://raw.githubusercontent.com/FT-Kickstarter-05/Kickstarter/main/2018_ks_data.csv')
+        add_campaigns(df)
+        return 'Db file reset successful'
 
     @app.route('/update')
     def update():
         data = wrangle()
         return f'{data}Data Wrangled successfully'
-    
-    #data = pd.read_csv('https://raw.githubusercontent.com/FT-Kickstarter-05/Kickstarter/main/2018_ks_data.csv')
-    
+
     @app.route('/predict')
     def prediction():
         predicted = test_func(data)
