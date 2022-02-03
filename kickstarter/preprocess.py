@@ -139,6 +139,7 @@ def wrangle(data):
 
     # Replace null values with 0
     df.fillna(0, inplace=True)
+    df.drop(columns=['usd pledged'], inplace=True)
 
     return df
 
