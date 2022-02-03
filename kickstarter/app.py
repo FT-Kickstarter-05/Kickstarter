@@ -4,6 +4,7 @@ from .models import DB, Campaign
 from .kickstarter import add_campaigns, sql_to_df
 import pandas as pd
 from sqlalchemy import select
+import json
 
 def create_app():
     '''Function called in __init__.py to create our Flask App'''
@@ -56,8 +57,10 @@ def create_app():
         data = wrangle(df_test)
         
         predicted = test_func(data)
-        # predicted = data.columns
-        return f'Here are the first five predictions from our model that were\
-                genearated from X_test: <br>{predicted}'
+        predicted_json = json.dumps(predicted)
+        # predicted = list(data.columns)
+        # return f'Here are the first five predictions from our model that were\
+                # genearated from X_test: <br>{predicted}'
+        return predicted_json
 
     return app
