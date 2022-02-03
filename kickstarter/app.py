@@ -1,7 +1,8 @@
 from flask import Flask, render_template
-from .preprocess import test_func
+from .preprocess import test_func, wrangle
 from .models import DB, Campaign
 from .kickstarter import add_campaigns
+import pandas as pd
 
 def create_app():
     '''Function called in __init__.py to create our Flask App'''
@@ -13,7 +14,7 @@ def create_app():
     def home_page():
         #test = test_func()
         #return f'{test}'
-        return render_template('base.html', title='hi')
+        return render_template('base.html', title='Kickstarter')
         #return render_template('index.html')
         #return 'This is the home page'
 
@@ -32,12 +33,25 @@ def create_app():
         DB.create_all()
         # Run the add_campaigns function to grab all of the rows from our
         # dataframe and insert them into the database
-        add_campaigns()
+        df = pd.read_csv(
+            'https://raw.githubusercontent.com/FT-Kickstarter-05/Kickstarter/main/2018_ks_data.csv')
+        add_campaigns(df)
         return 'Db file reset successful'
+
+    @app.route('/query')
+    def query():
+        result = Campaign.query.limit(10).all()
+        return f'{result}'
+
+    @app.route('/update')
+    def update():
+        data = wrangle()
+        return f'{data}Data Wrangled successfully'
 
     @app.route('/predict')
     def prediction():
-        predicted = test_func()
-        return f'{predicted}'
+        predicted = test_func(data)
+        return f'Here are the first five predictions from our model that were\
+                genearated from X_test: <br>{predicted}'
 
     return app
