@@ -1,8 +1,9 @@
 from flask import Flask, render_template
 from .preprocess import test_func, wrangle
 from .models import DB, Campaign
-from .kickstarter import add_campaigns
+from .kickstarter import add_campaigns, sql_to_df
 import pandas as pd
+from sqlalchemy import select
 
 def create_app():
     '''Function called in __init__.py to create our Flask App'''
@@ -40,17 +41,22 @@ def create_app():
 
     @app.route('/query')
     def query():
-        result = Campaign.query.limit(10).all()
-        return f'{result}'
-
-    @app.route('/update')
-    def update():
-        data = wrangle()
-        return f'{data}Data Wrangled successfully'
+        result = DB.session.query(Campaign).limit(10).all()
+        df_test = sql_to_df(result)
+        #test_o = result[0].eval('ID')
+        #test_o = vars(result[1])
+        # test_0 = pd.read_sql_query(result)
+        # return f'{result}'
+        return f'{df_test}'
 
     @app.route('/predict')
     def prediction():
+        result = DB.session.query(Campaign).limit(10).all()
+        df_test = sql_to_df(result)
+        data = wrangle(df_test)
+        
         predicted = test_func(data)
+        # predicted = data.columns
         return f'Here are the first five predictions from our model that were\
                 genearated from X_test: <br>{predicted}'
 
