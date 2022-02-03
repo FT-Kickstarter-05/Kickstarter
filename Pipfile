@@ -18,4 +18,4 @@ gunicorn = "*"
 flake8 = "*"
 
 [requires]
-python_version = "*"
+python_version = "3.9"
