@@ -40,15 +40,10 @@ def create_app():
         add_campaigns(df)
         return 'Db file reset successful'
 
-    @app.route('/query')
+    @app.route('/plots')
     def query():
-        result = DB.session.query(Campaign).limit(10).all()
-        df_test = sql_to_df(result)
-        #test_o = result[0].eval('ID')
-        #test_o = vars(result[1])
-        # test_0 = pd.read_sql_query(result)
-        # return f'{result}'
-        return f'{df_test}'
+        
+        return render_template('plots.html', title='plots')
 
     @app.route('/predict')
     def prediction():
