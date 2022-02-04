@@ -6,7 +6,7 @@ The Kickstarter App Takes a dataset provided by Kaggle. The team used advanced c
 
 # Heroku API
 
-Deployed URL:
+Deployed URL: https://kickstarter-05.herokuapp.com/
 
 # Meet the Team
 
