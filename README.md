@@ -2,7 +2,7 @@
 
 This app utilizes a dataset of 100,000 data points of kickstarter company details and implements a neural network model with a 91% accuracy score to predict the success status of a kickstarter company.
 
-The team used advanced cleaning, preprocessing, feature engineering, encoding, splitting, and scaling methods to model and train a neural network project. This app uses early stopping to prevent some of the over-fitting problems associated with these kinds of models; the training stops if the validation loss is not improving for three epochs and returns to the best weights the model had. We used class weights to get better performance from the model, based on the skew of the imbalanced classes.
+The team used advanced cleaning, preprocessing, feature engineering, encoding, splitting, and scaling methods to model and train a neural network project. This app uses early stopping to prevent some of the over-fitting problems associated with these kinds of models; the training stops if the validation loss is not improving for three epochs and returns to the best weights the model had. We used class weights to get better performance from the model, based on the skew of the imbalanced classes.  To learn more about the model, see the model_notebook.ipynb file.
 
 The trained model was saved and deployed on our custom flask app to generate and display predicted kickstart company success status to users.  To optimize processing speed, the initial dataset was converted to a mySQL database via MongoDB.  Our flask app is also deployed on Heroku for anyone to visit and view data visualizations and predictions for kickstarter companies.  
 
